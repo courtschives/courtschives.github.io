@@ -54,6 +54,27 @@
     nav { font-size: 18px; }
     nav .links { gap: 18px; }
   }
+
+  /* Phones: each row becomes a two-line entry (date + tag, then name). */
+  @media (max-width: 600px) {
+    main { gap: 0; }
+    main > section[aria-hidden] { display: none; }
+    table, tbody { display: block; }
+    tr {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-template-areas: "date tag" "name name";
+      gap: 2px 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    td { padding: 0; border: 0; }
+    td.date { grid-area: date; width: auto; font-size: 13px; }
+    td.tag { grid-area: tag; font-size: 13px; }
+    td.name { grid-area: name; font-size: 16px; overflow-wrap: anywhere; }
+    td.name a { display: block; padding: 2px 0; }
+    .summary { font-size: 16px; }
+  }
 </style>
 </head>
 
