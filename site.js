@@ -38,3 +38,15 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
     if (e.key === 'ArrowRight') show(current + 1);
   });
 });
+
+// Many phones can't show a PDF inside the page, so add a plain link under each
+// embedded PDF (hidden on desktop by project-template.css).
+document.querySelectorAll('.pdf-card object[data]').forEach((pdf) => {
+  const link = document.createElement('a');
+  link.className = 'btn pdf-open';
+  link.href = pdf.getAttribute('data').split('#')[0];
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  link.textContent = 'open pdf ↗';
+  pdf.closest('.pdf-card').after(link);
+});

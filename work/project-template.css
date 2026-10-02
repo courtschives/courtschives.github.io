@@ -403,3 +403,49 @@ footer {
   .media-card.quarter { width: 100%; }
   .lead, .project-copy p { font-size: 18px; }
 }
+
+/* Phones: stack the nav, shrink the type, tighten spacing. */
+@media (max-width: 600px) {
+  body { overflow-wrap: break-word; }
+  .wrap { padding-top: 24px; }
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 16px;
+  }
+  nav .links { gap: 6px 18px; }
+  .socials { margin-left: -6px; }
+  .socials a { width: 36px; height: 36px; }
+  main { margin-top: 32px; }
+  .terminal { font-size: 22px; margin-bottom: 16px; }
+  footer { margin-top: 32px; font-size: 14px; }
+}
+
+/* Phones: project pages. */
+@media (max-width: 600px) {
+  .project-shell { gap: 20px; }
+  .project-header h2 { font-size: 22px; }
+  .project-header h3, .project-copy h3 { font-size: 19px; }
+  .project-copy h2 { font-size: 21px; }
+  .lead { font-size: 16px; }
+  .project-copy p { font-size: 15px; line-height: 1.7; }
+  .media-card { border-radius: 10px; }
+  .media-row { gap: 10px; }
+  .media-card.quarter { width: calc(50% - 5px); }
+  .carousel-stage { height: min(62vh, 480px); border-radius: 10px; }
+  .carousel-stage.square { height: auto; }
+  .carousel-btn { width: 40px; height: 40px; font-size: 24px; }
+  .carousel-btn.prev { left: 8px; }
+  .carousel-btn.next { right: 8px; }
+  .carousel-thumb { width: 64px; height: 64px; }
+  .carousel-caption { font-size: 14px; }
+  .media-card.pdf-card object { height: 70vh; min-height: 360px; }
+  .btn { min-width: 0; }
+}
+
+/* "open pdf" link added by site.js; only needed where phones won't render PDFs inline. */
+.pdf-open { display: none; }
+@media (max-width: 860px) {
+  .pdf-open { display: inline-flex; align-self: flex-start; margin-top: -12px; }
+}
