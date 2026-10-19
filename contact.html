@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>~/court harris / contact</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  main { margin-top: 56px; }
+  .panel { max-width: 760px; color: var(--dim); font-size: 22px; line-height: 1.6; }
+  .panel p { margin: 0 0 1em; }
+
+  /* vine: hangs from the footer's top line on the right and grows downward on each load.
+     The growth is drawn by the script below: an uneven, speckled front that spreads
+     out from the stem, so the vine fills in like its particles are arriving. */
+  .site-footer { position: relative; }
+  .vine {
+    position: absolute; top: 0; right: 4%;
+    height: var(--vine-h, min(75vh, 600px)); aspect-ratio: 420 / 1120;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+  .vine video,
+  .vine canvas {
+    position: absolute; inset: 0;
+    display: block; width: 100%; height: 100%;
+    /* flipped so the thick stem is at the top, then nudged up past the
+       render's empty bottom rows (~52 of 1120) so the stem meets the line */
+    transform: translateY(-4.5%) scaleY(-1);
+  }
+  .vine video { visibility: hidden; } /* shown once the vine has finished growing */
+  .vine canvas[hidden] { display: none; }
+
+  @media (max-width: 860px) {
+    .panel { font-size: 18px; }
+  }
+  @media (max-width: 600px) {
+    .panel { font-size: 16px; }
+    .vine { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="links">
+      <a href="index.html" class="home">~/court/work</a>
+      <a href="about.html">./about</a>
+      <a href="contact.html">./contact</a>
+    </div>
+    <div class="socials" aria-label="Social media links">
+      <a href="https://github.com/courtschives" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12a12 12 0 0 0 8.2 11.43c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.09-.75.08-.74.08-.74 1.2.09 1.84 1.24 1.84 1.24 1.08 1.85 2.82 1.32 3.5 1 .11-.78.42-1.32.76-1.62-2.66-.3-5.47-1.33-5.47-5.92 0-1.31.47-2.38 1.23-3.22-.12-.3-.53-1.53.12-3.17 0 0 1-.32 3.3 1.23a11.4 11.4 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.64.25 2.87.12 3.17.77.84 1.23 1.9 1.23 3.22 0 4.6-2.82 5.61-5.5 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58A12 12 0 0 0 24 12C24 5.37 18.63 0 12 0Z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/courtneyjharris/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 8.56A1.56 1.56 0 1 1 6.94 5.44a1.56 1.56 0 0 1 0 3.12ZM5.5 9.84h2.8v8.16H5.5V9.84Zm4.36 0h2.68v1.12h.04c.38-.73 1.3-1.5 2.68-1.5 2.86 0 3.39 1.88 3.39 4.31V18h-2.8v-16.09c0-1.28-.03-2.92-1.78-2.92-1.79 0-2.06 1.39-2.06 2.83V18h-2.8V9.84Z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.1 7.24c.56 1.4 1.75 2.42 3.2 2.83v2.57a6.19 6.19 0 0 1-3.2-1.1v5.59a5.73 5.73 0 1 1-5.73-5.73c.31 0 .62.03.92.09v2.67a3.02 3.02 0 1 0 1.9 2.79V7.24h2.91Z"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <main>
+    <h1 class="terminal">court@archive:~$ ls -t contact/<span class="cursor">_</span></h1>
+    <div class="panel">
+      <p>&gt; email: courtschives@gmail.com</p>
+      <p>&gt; socials: <a href="https://github.com/courtschives" style="text-decoration:underline;" target="_blank" rel="noopener noreferrer">github</a> / <a href="https://www.linkedin.com/in/courtneyjharris/" style="text-decoration:underline;" target="_blank" rel="noopener noreferrer">linkedin</a> / tiktok</p>
+    </div>
+  </main>
+  <footer class="site-footer">
+    <p>&gt; website last watered: <span data-last-watered></span></p>
+    <div class="vine" aria-hidden="true">
+      <video data-src="work/assets/vine.mp4" data-poster="work/assets/vine-poster.jpg" muted loop playsinline preload="auto"></video>
+      <canvas width="420" height="1120"></canvas>
+    </div>
+  </footer>
+</div>
+<script>
+  const vine = document.querySelector('.vine');
+  const vineVideo = vine.querySelector('video');
+  const vineCanvas = vine.querySelector('canvas');
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Hang only as far as the bottom of the window, so the vine never makes the page scroll.
+  function sizeVine() {
+    const room = innerHeight - vine.getBoundingClientRect().top - scrollY - 8;
+    vine.style.setProperty('--vine-h', Math.max(0, Math.min(600, room)) + 'px');
+  }
+  sizeVine();
+  addEventListener('resize', sizeVine);
+
+  // --- Growth ---------------------------------------------------------------
+  // Each point of the vine gets an "arrival time": mostly how far it is from the
+  // stem, plus soft noise (for an uneven, organic front) and fine grain (so the
+  // edge dissolves into specks, like the render's particles). The reveal sweeps
+  // through those times, drawn into a low-res mask that's smoothed when scaled up.
+  // Coordinates are the source video's (stem at the bottom); CSS flips it.
+  const GROW_MS = 10000, DELAY_MS = 300;
+  const W = 420, H = 1120, STEM_X = 209, STEM_Y = 1068;
+  const MW = 105, MH = 280;                 // mask resolution (quarter size)
+  const NOISE = 0.28, GRAIN = 0.06, SOFT = 0.07;
+
+  function valueNoise(cols, rows) {
+    const g = Array.from({ length: (cols + 1) * (rows + 1) }, Math.random);
+    return (u, v) => {
+      const x = u * cols, y = v * rows, i = Math.floor(x), j = Math.floor(y);
+      const fx = x - i, fy = y - j, sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
+      const at = (a, b) => g[Math.min(b, rows) * (cols + 1) + Math.min(a, cols)];
+      const top = at(i, j) + (at(i + 1, j) - at(i, j)) * sx;
+      const bot = at(i, j + 1) + (at(i + 1, j + 1) - at(i, j + 1)) * sx;
+      return top + (bot - top) * sy;
+    };
+  }
+
+  const arrival = new Float32Array(MW * MH);
+  let maxArrival = 0;
+  function planGrowth() {
+    const coarse = valueNoise(5, 12), fine = valueNoise(16, 40);
+    for (let my = 0; my < MH; my++) {
+      for (let mx = 0; mx < MW; mx++) {
+        const x = (mx + 0.5) * W / MW, y = (my + 0.5) * H / MH;
+        const u = mx / MW, v = my / MH;
+        const along = Math.max(0, STEM_Y - y) / STEM_Y;    // down the vine from the stem
+        const across = 0.25 * Math.abs(x - STEM_X) / W;    // leaves fill in after the stem
+        const t = along + across
+          + NOISE * (0.7 * coarse(u, v) + 0.3 * fine(u, v))
+          + GRAIN * Math.random();
+        arrival[my * MW + mx] = t;
+        if (t > maxArrival) maxArrival = t;
+      }
+    }
+  }
+
+  const mask = document.createElement('canvas');
+  mask.width = MW; mask.height = MH;
+  const maskCtx = mask.getContext('2d');
+  const maskData = maskCtx.createImageData(MW, MH);
+  const ctx = vineCanvas.getContext('2d');
+  const still = new Image();
+  let growFrame = 0;
+
+  function drawGrowth(progress) {
+    const d = maskData.data;
+    for (let i = 0; i < arrival.length; i++) {
+      const a = Math.min(1, Math.max(0, (progress - arrival[i]) / SOFT));
+      d[i * 4 + 3] = a * a * (3 - 2 * a) * 255;
+    }
+    maskCtx.putImageData(maskData, 0, 0);
+    ctx.globalCompositeOperation = 'copy';
+    ctx.drawImage(still, 0, 0, W, H);
+    ctx.globalCompositeOperation = 'destination-in';
+    ctx.imageSmoothingEnabled = true;
+    ctx.drawImage(mask, 0, 0, W, H);
+  }
+
+  function finishGrowth() {
+    vineVideo.style.visibility = 'visible';
+    vineCanvas.hidden = true;
+    vineVideo.play().catch(() => {});
+  }
+
+  function grow() {
+    cancelAnimationFrame(growFrame);
+    vineVideo.pause();
+    vineVideo.currentTime = 0;
+    vineVideo.style.visibility = '';
+    vineCanvas.hidden = false;
+    planGrowth();
+    const start = performance.now() + DELAY_MS;
+    const from = -SOFT, to = maxArrival + SOFT;
+    (function frame(now) {
+      const t = Math.min(1, Math.max(0, (now - start) / GROW_MS));
+      const eased = 1 - Math.pow(1 - t, 2.2);  // quick start, slowing toward the tip
+      drawGrowth(from + (to - from) * eased);
+      if (t < 1) growFrame = requestAnimationFrame(frame);
+      else finishGrowth();
+    })(performance.now());
+  }
+
+  // Only load the vine off phones (it's hidden there).
+  if (matchMedia('(min-width: 601px)').matches) {
+    vineVideo.poster = vineVideo.dataset.poster;
+    vineVideo.src = vineVideo.dataset.src;
+    if (reduceMotion) {
+      vineVideo.style.visibility = 'visible';   // the full vine, as a still
+      vineCanvas.hidden = true;
+    } else {
+      still.onload = grow;
+      still.src = vineVideo.dataset.poster;
+    }
+  }
+
+  // Coming back via the back/forward buttons restores the page as it was; regrow it.
+  addEventListener('pageshow', (e) => {
+    if (e.persisted && !reduceMotion && still.complete && still.naturalWidth) grow();
+  });
+</script>
+<script src="site.js"></script>
+</body>
+</html>
